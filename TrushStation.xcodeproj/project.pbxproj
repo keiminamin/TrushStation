@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C9499DA2AB8100500F5ADE9 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9499D92AB8100500F5ADE9 /* Garbage.swift */; };
+		1C9499DD2AB8103C00F5ADE9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9499DC2AB8103C00F5ADE9 /* Realm */; };
+		1C9499DF2AB8103C00F5ADE9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9499DE2AB8103C00F5ADE9 /* RealmSwift */; };
 		1CA3B2DD2AB73AF300DFA4FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA3B2DC2AB73AF300DFA4FB /* AppDelegate.swift */; };
 		1CA3B2DF2AB73AF300DFA4FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA3B2DE2AB73AF300DFA4FB /* SceneDelegate.swift */; };
 		1CA3B2E12AB73AF300DFA4FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA3B2E02AB73AF300DFA4FB /* MapViewController.swift */; };
@@ -16,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C9499D92AB8100500F5ADE9 /* Garbage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garbage.swift; sourceTree = "<group>"; };
 		1CA3B2D92AB73AF300DFA4FB /* TrushStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrushStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CA3B2DC2AB73AF300DFA4FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CA3B2DE2AB73AF300DFA4FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,6 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C9499DF2AB8103C00F5ADE9 /* RealmSwift in Frameworks */,
+				1C9499DD2AB8103C00F5ADE9 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +69,7 @@
 				1CA3B2E52AB73AF400DFA4FB /* Assets.xcassets */,
 				1CA3B2E72AB73AF400DFA4FB /* LaunchScreen.storyboard */,
 				1CA3B2EA2AB73AF400DFA4FB /* Info.plist */,
+				1C9499D92AB8100500F5ADE9 /* Garbage.swift */,
 			);
 			path = TrushStation;
 			sourceTree = "<group>";
@@ -83,6 +90,10 @@
 			dependencies = (
 			);
 			name = TrushStation;
+			packageProductDependencies = (
+				1C9499DC2AB8103C00F5ADE9 /* Realm */,
+				1C9499DE2AB8103C00F5ADE9 /* RealmSwift */,
+			);
 			productName = TrushStation;
 			productReference = 1CA3B2D92AB73AF300DFA4FB /* TrushStation.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 1CA3B2D02AB73AF300DFA4FB;
+			packageReferences = (
+				1C9499DB2AB8103C00F5ADE9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 1CA3B2DA2AB73AF300DFA4FB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CA3B2E12AB73AF300DFA4FB /* MapViewController.swift in Sources */,
+				1C9499DA2AB8100500F5ADE9 /* Garbage.swift in Sources */,
 				1CA3B2DD2AB73AF300DFA4FB /* AppDelegate.swift in Sources */,
 				1CA3B2DF2AB73AF300DFA4FB /* SceneDelegate.swift in Sources */,
 			);
@@ -287,6 +302,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 329FT47YM6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TrushStation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -314,6 +330,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 329FT47YM6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TrushStation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -356,6 +373,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C9499DB2AB8103C00F5ADE9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C9499DC2AB8103C00F5ADE9 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C9499DB2AB8103C00F5ADE9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		1C9499DE2AB8103C00F5ADE9 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C9499DB2AB8103C00F5ADE9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1CA3B2D12AB73AF300DFA4FB /* Project object */;
 }
