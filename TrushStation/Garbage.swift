@@ -16,4 +16,5 @@ class Garbage :Object{
     @Persisted var isIncombustibleGarbage :Bool = false
     @Persisted var isPetBottle :Bool = false
     @Persisted var isEmptyCan :Bool = false
+    @Persisted var id:Int = 0
 }

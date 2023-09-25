@@ -14,15 +14,17 @@ class SaveViewController: UIViewController {
     @IBOutlet var notFireButton:UIButton!
     @IBOutlet var petButton:UIButton!
     @IBOutlet var canButton:UIButton!
+    var saveData: UserDefaults = UserDefaults.standard
     var longitudeNow: Double!
     var latitudeNow: Double!
+    var number:Int = 0
     let realm = try! Realm()
     
    
     override func viewDidLoad() {
         super.viewDidLoad()
       
-       
+        saveData.set(0, forKey: "number")
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -39,12 +41,12 @@ class SaveViewController: UIViewController {
     @IBAction func petTrue(){
         if petButton.isSelected{
             petButton.setImage(UIImage(named: "pet"), for: .normal)
-            petButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+         
             petButton.isSelected = false
         }else{
             petButton.setImage(UIImage(named: "green_pet"), for: .normal)
             petButton.imageView?.contentMode = .scaleAspectFill
-            petButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+          
             petButton.isSelected = true
         }
         
@@ -88,12 +90,17 @@ class SaveViewController: UIViewController {
     }
     @IBAction func save(){
         let garbage = Garbage()
+        number = saveData.integer(forKey: "number")
+        print(saveData.integer(forKey: "number"))
         garbage.trushLongtitude = longitudeNow
         garbage.trushLatitude = latitudeNow
         garbage.isBurnableGarbage = fireButton.isSelected
         garbage.isIncombustibleGarbage = notFireButton.isSelected
         garbage.isPetBottle = petButton.isSelected
         garbage.isEmptyCan = canButton.isSelected
+        garbage.id = number
+        number += 1
+        saveData.set(number,forKey: "number")
         print("save")
         createGarbage(garbage: garbage)
         self.dismiss(animated: true)

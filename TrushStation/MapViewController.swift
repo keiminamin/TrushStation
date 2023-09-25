@@ -9,6 +9,19 @@ import UIKit
 import MapKit
 import CoreLocation
 import RealmSwift
+class TrushAnnotation: NSObject, MKAnnotation {
+
+    public var coordinate: CLLocationCoordinate2D
+    public var title: String?
+    public var subtitle: String?
+
+    public init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+    }
+
+}
 class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     let locationManager = CLLocationManager()
     let realm = try! Realm()
@@ -17,6 +30,12 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
     @IBOutlet var positionButton: UIButton!
     var latitudeNow: Double = 0
     var longitudeNow: Double = 0
+    var trushLatitude: Double = 0
+    var trushLogitude: Double = 0
+    var isFireTrush: Bool = false
+    var isNotFireTrush: Bool = false
+    var isPet:Bool = false
+    var isCan:Bool = false
     var garbages:Results<Garbage>!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +65,9 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
        
         for garbage in garbages{
             print(garbage.trushLatitude)
-            let position: CLLocationCoordinate2D = CLLocationCoordinate2DMake(garbage.trushLatitude, garbage.trushLongtitude)
-            let pin:MKPointAnnotation = MKPointAnnotation()
-            pin.coordinate = position
+            let pin = TrushAnnotation(coordinate: CLLocationCoordinate2D(latitude: garbage.trushLatitude, longitude: garbage.trushLongtitude),
+                                      title:String(garbage.id) ,
+                                       subtitle: "a")
             mapKitView.addAnnotation(pin)
             
             print("set")
@@ -69,6 +88,17 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         annotationView.annotation = annotation
         annotationView.canShowCallout = true
         return annotationView
+    }
+    internal func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+            for view in views {
+                view.rightCalloutAccessoryView = UIButton(type: UIButton.ButtonType.detailDisclosure)
+            }
+    }
+    internal func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        self.performSegue(withIdentifier: "toSavedTrush", sender: nil)
+    }
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+       
     }
     // 位置情報を取得した場合
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -102,6 +132,11 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
             }else{
                 print("NO")
             }
+            if let sheet = next.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+        }
+        if segue.identifier == "toSavedTrush"{
             if let sheet = next.sheetPresentationController {
                 sheet.detents = [.medium()]
             }

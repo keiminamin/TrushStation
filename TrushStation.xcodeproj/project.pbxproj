@@ -13,6 +13,7 @@
 		1C5A82D52AB831030070F03D /* アセット 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A82D42AB831020070F03D /* アセット 5.png */; };
 		1C5A82D72AB831430070F03D /* notfire.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A82D62AB831430070F03D /* notfire.png */; };
 		1C5A82D92AC117FC0070F03D /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A82D82AC117FC0070F03D /* SaveViewController.swift */; };
+		1C5A82DB2AC178A50070F03D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A82DA2AC178A50070F03D /* icon.png */; };
 		1C9499DA2AB8100500F5ADE9 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9499D92AB8100500F5ADE9 /* Garbage.swift */; };
 		1C9499DD2AB8103C00F5ADE9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9499DC2AB8103C00F5ADE9 /* Realm */; };
 		1C9499DF2AB8103C00F5ADE9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9499DE2AB8103C00F5ADE9 /* RealmSwift */; };
@@ -31,6 +32,7 @@
 		1C5A82D42AB831020070F03D /* アセット 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "アセット 5.png"; sourceTree = "<group>"; };
 		1C5A82D62AB831430070F03D /* notfire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notfire.png; sourceTree = "<group>"; };
 		1C5A82D82AC117FC0070F03D /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
+		1C5A82DA2AC178A50070F03D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1C9499D92AB8100500F5ADE9 /* Garbage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garbage.swift; sourceTree = "<group>"; };
 		1CA3B2D92AB73AF300DFA4FB /* TrushStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrushStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CA3B2DC2AB73AF300DFA4FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		1CA3B2DB2AB73AF300DFA4FB /* TrushStation */ = {
 			isa = PBXGroup;
 			children = (
+				1C5A82DA2AC178A50070F03D /* icon.png */,
 				1CA3B2DC2AB73AF300DFA4FB /* AppDelegate.swift */,
 				1CA3B2DE2AB73AF300DFA4FB /* SceneDelegate.swift */,
 				1CA3B2E02AB73AF300DFA4FB /* MapViewController.swift */,
@@ -159,6 +162,7 @@
 			files = (
 				1C5A82D12AB830710070F03D /* can.png in Resources */,
 				1CA3B2E92AB73AF400DFA4FB /* LaunchScreen.storyboard in Resources */,
+				1C5A82DB2AC178A50070F03D /* icon.png in Resources */,
 				1C5A82CF2AB82F700070F03D /* fire.png in Resources */,
 				1C5A82CD2AB82F560070F03D /* not_fire.png in Resources */,
 				1CA3B2E62AB73AF400DFA4FB /* Assets.xcassets in Resources */,
