@@ -22,8 +22,9 @@ class SaveViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         let location = CLLocation(latitude: longitudeNow, longitude: latitudeNow)
         print("OK")
+      
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
-            guard let placemark = placemarks?.first, error == nil else { return }
+            guard let placemark = placemarks?.last, error == nil else { return }
             print(placemark.name)
             self.positionLabel.text = placemark.name
             // あとは煮るなり焼くなり

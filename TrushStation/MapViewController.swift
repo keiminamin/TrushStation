@@ -39,13 +39,12 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
                 print("location: \(location)") // CLLocationManagerクラスで取得した位置情報
                 print("緯度: \(location.coordinate.latitude)")
                 print("経度: \(location.coordinate.longitude)")
+                self.latitudeNow = Double(location.coordinate.latitude)
+                self.longitudeNow = Double(location.coordinate.latitude)
             }
-        let location = locations.first
-        let latitude = location?.coordinate.latitude
-        let longitude = location?.coordinate.longitude
-        // 位置情報を格納する
-        self.latitudeNow = Double(latitude!)
-        self.longitudeNow = Double(longitude!)
+       
+       
+       
         }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
            print("error: \(error)")
@@ -60,7 +59,8 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         if segue.identifier == "toAddModal"{
             if status == .authorizedWhenInUse{
                 let saveViewController = segue.destination as! SaveViewController
-               
+                print(String(longitudeNow))
+                print(String(latitudeNow))
                 saveViewController.longitudeNow = longitudeNow
                 saveViewController.latitudeNow = latitudeNow
             }else{
