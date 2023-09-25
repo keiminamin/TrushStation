@@ -40,7 +40,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
                 print("緯度: \(location.coordinate.latitude)")
                 print("経度: \(location.coordinate.longitude)")
                 self.latitudeNow = Double(location.coordinate.latitude)
-                self.longitudeNow = Double(location.coordinate.latitude)
+                self.longitudeNow = Double(location.coordinate.longitude)
             }
        
        
