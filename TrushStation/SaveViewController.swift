@@ -20,7 +20,7 @@ class SaveViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        let location = CLLocation(latitude: longitudeNow, longitude: latitudeNow)
+        let location = CLLocation(latitude: latitudeNow, longitude: longitudeNow)
         print("OK")
       
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in

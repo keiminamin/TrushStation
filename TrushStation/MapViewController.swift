@@ -59,8 +59,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         if segue.identifier == "toAddModal"{
             if status == .authorizedWhenInUse{
                 let saveViewController = segue.destination as! SaveViewController
-                print(String(longitudeNow))
-                print(String(latitudeNow))
+               
                 saveViewController.longitudeNow = longitudeNow
                 saveViewController.latitudeNow = latitudeNow
             }else{
