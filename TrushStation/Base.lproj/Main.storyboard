@@ -205,10 +205,10 @@
             </objects>
             <point key="canvasLocation" x="-25.190839694656489" y="537.32394366197184"/>
         </scene>
-        <!--View Controller-->
+        <!--Trush View Controller-->
         <scene sceneID="BvE-fX-xey">
             <objects>
-                <viewController id="O1z-uk-ZNz" sceneMemberID="viewController">
+                <viewController id="O1z-uk-ZNz" customClass="TrushViewController" customModule="TrushStation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9pb-Mm-M7q">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -280,7 +280,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="保存">
+                                        <state key="normal" title="捨てる">
                                             <color key="titleColor" red="0.66274509800000003" green="0.4431372549" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
@@ -317,9 +317,16 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iDm-Ka-5uP"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.92156862750000001" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Gpb-ia-c7A"/>
+                    <connections>
+                        <outlet property="canButton" destination="YoM-Rh-i0E" id="WiY-uD-dSm"/>
+                        <outlet property="fireButton" destination="VkQ-fX-qEg" id="Dko-Lu-5Ac"/>
+                        <outlet property="notFireButton" destination="HrR-3o-ZcG" id="Jr6-eh-xU2"/>
+                        <outlet property="petButton" destination="Rjq-bm-kwL" id="2AN-d2-MmO"/>
+                        <outlet property="positionLabel" destination="11S-ZB-moX" id="dpb-Cz-8qC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Nq-GM-eUQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

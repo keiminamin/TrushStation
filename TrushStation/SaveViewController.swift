@@ -24,7 +24,7 @@ class SaveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        saveData.set(0, forKey: "number")
+       
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -90,7 +90,7 @@ class SaveViewController: UIViewController {
     }
     @IBAction func save(){
         let garbage = Garbage()
-        number = saveData.integer(forKey: "number")
+        number = saveData.integer(forKey: "number") ?? 0
         print(saveData.integer(forKey: "number"))
         garbage.trushLongtitude = longitudeNow
         garbage.trushLatitude = latitudeNow
