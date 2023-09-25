@@ -8,17 +8,20 @@
 import UIKit
 import MapKit
 import CoreLocation
-class MapViewController: UIViewController,CLLocationManagerDelegate {
+import RealmSwift
+class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     let locationManager = CLLocationManager()
+    let realm = try! Realm()
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet var modalButton: UIButton!
     @IBOutlet var positionButton: UIButton!
     var latitudeNow: Double = 0
     var longitudeNow: Double = 0
-
+    var garbages:Results<Garbage>!
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
+        mapKitView.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
@@ -29,10 +32,44 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         mapKitView.region = region
         mapKitView.setCenter(mapKitView.userLocation.coordinate, animated: false)
         mapKitView.userTrackingMode = .follow
-       
+        garbages = readGarbages()
+        setTrushBox()
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("saved")
+        garbages = readGarbages()
+        setTrushBox()
+    }
+    func setTrushBox(){
+       
+        for garbage in garbages{
+            print(garbage.trushLatitude)
+            let position: CLLocationCoordinate2D = CLLocationCoordinate2DMake(garbage.trushLatitude, garbage.trushLongtitude)
+            let pin:MKPointAnnotation = MKPointAnnotation()
+            pin.coordinate = position
+            mapKitView.addAnnotation(pin)
+            
+            print("set")
+        }
+        
+    }
+    func readGarbages()->Results<Garbage>{
+        return realm.objects(Garbage.self)
+    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let identifier = "pin"
+        var annotationView: MKAnnotationView!
+        if annotationView == nil {
+        annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        }
+        // pinに表示する画像を指定
+        annotationView.image = UIImage(named: "brown_trush")!
+        annotationView.annotation = annotation
+        annotationView.canShowCallout = true
+        return annotationView
+    }
     // 位置情報を取得した場合
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             if let location = locations.last {

@@ -7,30 +7,103 @@
 
 import UIKit
 import MapKit
+import RealmSwift
 class SaveViewController: UIViewController {
     @IBOutlet var positionLabel:UILabel!
+    @IBOutlet var fireButton:UIButton!
+    @IBOutlet var notFireButton:UIButton!
+    @IBOutlet var petButton:UIButton!
+    @IBOutlet var canButton:UIButton!
     var longitudeNow: Double!
     var latitudeNow: Double!
-    
+    let realm = try! Realm()
     
    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      
+       
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+      
         let location = CLLocation(latitude: latitudeNow, longitude: longitudeNow)
         print("OK")
       
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             guard let placemark = placemarks?.last, error == nil else { return }
-            print(placemark.name)
             self.positionLabel.text = placemark.name
             // あとは煮るなり焼くなり
         }
     }
-
+    @IBAction func petTrue(){
+        if petButton.isSelected{
+            petButton.setImage(UIImage(named: "pet"), for: .normal)
+            petButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+            petButton.isSelected = false
+        }else{
+            petButton.setImage(UIImage(named: "green_pet"), for: .normal)
+            petButton.imageView?.contentMode = .scaleAspectFill
+            petButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+            petButton.isSelected = true
+        }
+        
+        print(petButton.isSelected)
+    }
+    @IBAction func fireTrue(){
+        if fireButton.isSelected{
+            fireButton.setImage(UIImage(named: "fire"), for: .normal)
+            fireButton.isSelected = false
+        }else{
+            fireButton.setImage(UIImage(named: "green_fire"), for: .normal)
+           
+            fireButton.isSelected = true
+        }
+        
+        print(fireButton.isSelected)
+    }
+    @IBAction func notFireTrue(){
+        if notFireButton.isSelected{
+            notFireButton.setImage(UIImage(named: "notfire"), for: .normal)
+            notFireButton.isSelected = false
+        }else{
+            notFireButton.setImage(UIImage(named: "green_notfire"), for: .normal)
+           
+            notFireButton.isSelected = true
+        }
+        
+        print(notFireButton.isSelected)
+    }
+    @IBAction func canTrue(){
+        if canButton.isSelected{
+            canButton.setImage(UIImage(named: "can"), for: .normal)
+            canButton.isSelected = false
+        }else{
+            canButton.setImage(UIImage(named: "green_can"), for: .normal)
+           
+            canButton.isSelected = true
+        }
+        
+        print(canButton.isSelected)
+    }
+    @IBAction func save(){
+        let garbage = Garbage()
+        garbage.trushLongtitude = longitudeNow
+        garbage.trushLatitude = latitudeNow
+        garbage.isBurnableGarbage = fireButton.isSelected
+        garbage.isIncombustibleGarbage = notFireButton.isSelected
+        garbage.isPetBottle = petButton.isSelected
+        garbage.isEmptyCan = canButton.isSelected
+        print("save")
+        createGarbage(garbage: garbage)
+        self.dismiss(animated: true)
+    }
+    func createGarbage(garbage: Garbage){
+        try! realm.write{
+            realm.add(garbage)
+        }
+    }
+   
     /*
     // MARK: - Navigation
 
