@@ -103,7 +103,11 @@ class SaveViewController: UIViewController {
         saveData.set(number,forKey: "number")
         print("save")
         createGarbage(garbage: garbage)
-        self.dismiss(animated: true)
+        if let presentationController = presentationController{
+                    presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
+                }
+        self.dismiss(animated: true,completion: nil)
+       
     }
     func createGarbage(garbage: Garbage){
         try! realm.write{

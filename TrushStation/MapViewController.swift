@@ -25,7 +25,7 @@ class TrushAnnotation: NSObject, MKAnnotation {
     }
 
 }
-class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
+class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate,UIAdaptivePresentationControllerDelegate {
     let locationManager = CLLocationManager()
     let realm = try! Realm()
     @IBOutlet weak var mapKitView: MKMapView!
@@ -45,6 +45,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         super.viewDidLoad()
         locationManager.delegate = self
         mapKitView.delegate = self
+        presentationController?.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
@@ -121,6 +122,9 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
        locationManager.requestLocation()
       
     }
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        print("Closed.")
+      }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let status = CLLocationManager.authorizationStatus()
         let next = segue.destination
