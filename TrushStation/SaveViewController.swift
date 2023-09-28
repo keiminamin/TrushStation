@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 import RealmSwift
-class SaveViewController: UIViewController {
+class SaveViewController: UIViewController{
     @IBOutlet var positionLabel:UILabel!
     @IBOutlet var fireButton:UIButton!
     @IBOutlet var notFireButton:UIButton!
@@ -38,6 +38,9 @@ class SaveViewController: UIViewController {
             // あとは煮るなり焼くなり
         }
     }
+    func readGarbages()->Results<Garbage>{
+        return realm.objects(Garbage.self)
+    }
     @IBAction func petTrue(){
         if petButton.isSelected{
             petButton.setImage(UIImage(named: "pet"), for: .normal)
@@ -45,7 +48,6 @@ class SaveViewController: UIViewController {
             petButton.isSelected = false
         }else{
             petButton.setImage(UIImage(named: "green_pet"), for: .normal)
-            petButton.imageView?.contentMode = .scaleAspectFill
           
             petButton.isSelected = true
         }
@@ -103,9 +105,14 @@ class SaveViewController: UIViewController {
         saveData.set(number,forKey: "number")
         print("save")
         createGarbage(garbage: garbage)
-        if let presentationController = presentationController{
-                    presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
-                }
+        
+        if let controller = self.presentingViewController as? MapViewController {
+            controller.garbages = controller.readGarbages()
+            controller.helloworld()
+            controller.setTrushBox()
+           
+            
+        }
         self.dismiss(animated: true,completion: nil)
        
     }

@@ -10,18 +10,18 @@ import MapKit
 import CoreLocation
 import RealmSwift
 class TrushAnnotation: NSObject, MKAnnotation {
-
+    public var clusteringIdetifier:Int
     public var coordinate: CLLocationCoordinate2D
     public var title: String?
     public var subtitle: String?
-    public var titleVisibility: Bool?
-    public var subtitleVisibility: Bool?
-    public init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String, titleVisibility: Bool,subtitleVisibility: Bool) {
+   
+    
+    public init(_  idetifier:Int,  coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
         self.coordinate = coordinate
         self.title = title
         self.subtitle = subtitle
-        self.titleVisibility = titleVisibility
-        self.subtitleVisibility = subtitleVisibility
+        self.clusteringIdetifier = idetifier
+    
     }
 
 }
@@ -30,7 +30,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
     let realm = try! Realm()
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet var modalButton: UIButton!
-    @IBOutlet var positionButton: UIButton!
+  
     var latitudeNow: Double = 0
     var longitudeNow: Double = 0
     var trushLatitude: Double = 0
@@ -41,6 +41,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
     var isCan:Bool = false
     var garbages:Results<Garbage>!
     var numberTitle:String!
+    var annotationsArray :Array<MKAnnotation> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -50,7 +51,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         modalButton.layer.cornerRadius = 35
-        positionButton.layer.cornerRadius = 35
+       
         let span : MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         let region : MKCoordinateRegion = MKCoordinateRegion(center: mapKitView.centerCoordinate, span: span)
         mapKitView.region = region
@@ -60,19 +61,16 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         setTrushBox()
 
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("saved")
-        garbages = readGarbages()
-        setTrushBox()
-       
+    func helloworld(){
+        print("helloworld")
     }
+   
     func setTrushBox(){
        
         for garbage in garbages{
-            print(garbage.trushLatitude)
-            let pin = TrushAnnotation(coordinate: CLLocationCoordinate2D(latitude: garbage.trushLatitude,longitude:garbage.trushLongtitude),title:String(garbage.id), subtitle:String(garbage.isEmptyCan),titleVisibility:false,subtitleVisibility:false)
-                                     
+
+            let pin = TrushAnnotation(garbage.id, coordinate: CLLocationCoordinate2D(latitude: garbage.trushLatitude,longitude:garbage.trushLongtitude),title:String(garbage.id), subtitle:String(garbage.isEmptyCan))
+            annotationsArray.append(pin)
            
             mapKitView.addAnnotation(pin)
             
@@ -81,6 +79,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         
     }
     func readGarbages()->Results<Garbage>{
+        print("garbages")
         return realm.objects(Garbage.self)
     }
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -90,6 +89,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         }
         // pinに表示する画像を指定
+       
         annotationView.image = UIImage(named: "brown_trush")!
         annotationView.annotation = annotation
         annotationView.canShowCallout = true
@@ -97,10 +97,13 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
     }
    
    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        let annotation = view.annotation
-        numberTitle = annotation?.title ?? ""
-        self.performSegue(withIdentifier: "toSavedTrush", sender: nil)
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if garbages.count > 0{
+            let annotation = view.annotation
+            numberTitle = annotation?.title ?? ""
+            
+            self.performSegue(withIdentifier: "toSavedTrush", sender: nil)
+        }
     }
     // 位置情報を取得した場合
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -122,28 +125,31 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
        locationManager.requestLocation()
       
     }
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        print("Closed.")
-      }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let status = CLLocationManager.authorizationStatus()
         let next = segue.destination
-        if segue.identifier == "toAddModal"{
-            if status == .authorizedWhenInUse{
-                let saveViewController = segue.destination as! SaveViewController
-               
-                saveViewController.longitudeNow = longitudeNow
-                saveViewController.latitudeNow = latitudeNow
-            }else{
-                print("NO")
+        
+            if segue.identifier == "toAddModal"{
+                if status == .authorizedWhenInUse{
+                    let saveViewController = segue.destination as! SaveViewController
+                   
+                    saveViewController.longitudeNow = longitudeNow
+                    saveViewController.latitudeNow = latitudeNow
+                }else{
+                    print("NO")
+                }
+                if let sheet = next.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                }
             }
-            if let sheet = next.sheetPresentationController {
-                sheet.detents = [.medium()]
-            }
-        }
+        
         if segue.identifier == "toSavedTrush"{
             let trushViewController = segue.destination as! TrushViewController
             trushViewController.number = Int(numberTitle) ?? 0
+            let selectedSearchAnnotationArray = mapKitView.selectedAnnotations
+            let selectedSearchAnnotation = selectedSearchAnnotationArray[0]
+            trushViewController.annotation = selectedSearchAnnotation
             if let sheet = next.sheetPresentationController {
                 sheet.detents = [.medium()]
             }
